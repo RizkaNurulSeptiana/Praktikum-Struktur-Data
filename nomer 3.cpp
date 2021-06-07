@@ -1,107 +1,154 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+typedef struct simpul MNode;
 struct simpul{
-int nomor;
-char car[30];
-char pemilik[30];
-struct simpul *next;
-struct simpul *prev;
+int NRP;
+char Nama[30];
+int Kelas;
+MNode *next;
 };
-struct simpul *head=NULL;
-struct simpul *tail=NULL;
-struct simpul *cek;
-void display(){
-cek=tail;
-while(cek!=NULL){
-printf("nomor plat : %d\n", cek->nomor);
-printf("merk mobil: %s", cek->car);
-printf("nama pemilik : %s\n", cek->pemilik);
-cek=cek->prev;
-}
-}
-void dlt(){
-cek=tail;
-
-int nmr;
-if(cek==NULL){
-return;
-}
-else{
-printf("Hapus data parkir (Input berupa nomor mobil) : ");scanf("%d", &nmr);
-if(cek->nomor == nmr){
-if(tail==head){
-head=NULL;
-tail=NULL;
-free(cek);
-}
-else{
-tail=tail->prev;
-tail->next=cek->next;
-free(cek);
-}
-}
-else{
-while(cek!=NULL){
-if(cek->nomor == nmr){
-if(cek==head){
-head=head->next;
-head->prev=cek->prev;
-free(cek);
-return;
-}
-else{
-cek->next->prev=cek->prev;
-cek->prev->next=cek->next;
-free(cek);
-return;
-}
-}
-cek=cek->prev;
-}
-}
-}
-}
-void insert(){
-static int i=0;
-struct simpul *sementara=(struct simpul*)malloc(sizeof(struct simpul));
-printf("nomor plat : ");scanf("%d", &sementara->nomor);
-fflush(stdin);
-printf("merk mobil : ", sementara->nomor);fgets(sementara->car, sizeof sementara->car,
-stdin);
-printf("pemilik mobil: ", sementara->nomor);fgets(sementara->pemilik, sizeof sementara->pemilik, stdin);
-if(head==NULL&&tail==NULL){
-sementara->next=NULL;
-sementara->prev=NULL;
-head=sementara;
-tail=sementara;
-}
-else{
-sementara->next=head;
-sementara->prev=NULL;
-head->prev=sementara;
-head=sementara;
-}
-}
-int main()
+MNode *baru,*head=NULL;
+void alokasi_simpul_mhs(int nrp,int kelas,char nama[])
 {
-int pilihan;
-do{
-puts("Yuk dipilih");
-puts("1.Tampil");
-puts("2.Insert");
-puts("3.Delete");
-puts("4.Keluar");
-printf("Pilihan : ");scanf("%d", &pilihan);
-fflush(stdin);
-switch(pilihan){
-case 1 : display();
-break;
-case 2 : insert();
-break;
-case 3 : dlt();
-break;
-case 4 : break;
-default : puts("salah!! coba lagi");
+baru=(MNode *)malloc(sizeof(MNode));
+if(baru==NULL){
+printf("Alokasi gagal\n");
+exit(1);
+}else{
+baru->NRP=nrp;
+strcpy(baru->Nama,nama);
+baru->Kelas=kelas;
+baru->next=NULL;
 }
-}while(pilihan!=4);
+}
+void cetak(){
+MNode *p=head;
+printf("NRP\tNAMA\tKELAS\n");
+while(p!=NULL){
+printf("%d\t%s\t%d\n",p->NRP,p->Nama,p->Kelas);
+p=p->next;
+}
+printf("\n");
+}
+sisip_awal(){
+baru->next=head;
+head=baru;
+}
+sisip_akhir(){
+MNode *tail=head;
+while(tail->next != NULL){
+tail = tail->next;
+}
+tail->next = baru;
+}
+//Operasi hapus
+void free_Node(MNode *p)
+{
+free(p);
+p=NULL;
+}
+hapus_simpul_awal(){
+MNode *hapus = head;
+head = hapus->next;
+free_Node(hapus);
+}
+void hapus(int x)
+{
+MNode *hapus=head, *before=head;
+if(hapus->NRP==x){
+hapus_simpul_awal();
+}
+else{
+while(hapus!=NULL && hapus->NRP!=x){
+before=hapus;
+hapus=hapus->next;
+}
+if(hapus==NULL){
+printf("Simpul tidak tersedia\n");
+}
+else{
+before->next=hapus->next;
+free_Node(hapus);
+}
+}
+}
+void sisip_urut()
+{
+MNode *before=head;
+if(head==NULL){
+head=baru;
+}
+else if(baru->NRP<head->NRP){
+sisip_awal();
+}
+else{
+while(before!=NULL && baru->NRP > before->NRP){
+before=before->next;
+}
+if(before==NULL){
+sisip_akhir();
+}
+else if(baru->NRP==before->NRP){
+printf("\nDuplikat data\n\n");
+}
+}
+}
+//fungsi sisip sebelum simpul tertentu
+sisip_sebelum_simpul_tertentu(int x){
+MNode *before = head;
+while(before->next->NRP != x)
+before = before->next;
+baru->next = before->next;
+before->next = baru;
+}
+//x=nrp,y=nama,k=kelas
+update_data(int x,char y,int k){
+MNode *p=head;
+if(p==NULL)
+printf("\nTidak dapat mengedit\n");
+while(p->next!=NULL){
+if(p->NRP==x){
+}else{
+printf("\nPrefix NRP tidak ditemukan\n");
+exit(1);//out program
+}
+}
+}
+main() {
+ int nrp;
+ char nama[30];
+ int kelas;
+ int menu;
+ char lagi='y';
+ printf("RIZKA NURUL SEPTIANA HAKIM\n");
+ printf("20051397025\n");
+ printf("MI_A_2020\n");
+printf("DOUBLE LINKED LIST:\n");
+ do{
+printf("\n1.Sisip Urut\n");
+printf("2.hapus Node(Prefix NRP)\n");
+printf("3.Edit Data (Prefix NRP)");
+printf("\nMenu:");scanf("%d",&menu);fflush(stdin);
+switch(menu){
+case 1:printf("Nama:");gets(nama);
+printf("NRP:");scanf("%d",&nrp);
+ printf("kelas:");scanf("%d",&kelas);
+
+ alokasi_simpul_mhs(nrp,kelas,nama);
+ sisip_urut();
+ break;
+case 2:printf("Mana yang akan di hapus(NRP):");
+scanf("%d",&nrp);
+printf("\n");
+hapus(nrp);
+break;
+case 3: printf("Nama Baru:");gets(nama);
+printf("Kelas Baru:");scanf("%d",&kelas);
+printf("Mana yang akan di edit(NRP):");
+scanf("%d",&nrp);
+break;
+ }
+ cetak();
+ }while(lagi=='y');
 }
