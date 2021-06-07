@@ -1,21 +1,40 @@
-#include<iostream>
-using namespace std;
-int i;
-int angka(int n )
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 10
+int Data[MAX];
+// Fungsi pengurutan penyisipan langsung
+void StraightInsertSort()
 {
-    cout<<"MASUKKAN ANGKA :";
-    cin>>n;
-     for (i=0; i<n; i++)
-    {
-        cout<<"Rekursi Dari 0 Ke N : "<<i;
-        cout<<endl;
-    }
-    return n;
+int i, j, x;
+for(i=1; i<MAX; i++){
+x = Data[i];
+j = i - 1;
+while (x < Data[j]){
+Data[j+1] = Data[j];
+j--;
 }
-
-int main ()
+Data[j+1] = x;
+}
+}
+int main()
 {
-    int n;
-    int i;
-    cout<<angka(i);
+int i;
+srand(0);
+printf("RIZKA NURUL SEPTIANA HAKIM\n");
+ printf("20051397025\n");
+ printf("MI_A_2020\n");
+// Membangkitkan bilangan acak
+printf("DATA SEBELUM TERURUT");
+for(i=0; i<MAX; i++)
+{
+Data[i] = (int) rand()/1000+1;
+printf("\nData ke %d : %d ", i, Data[i]);
+}
+StraightInsertSort();
+// Data setelah terurut
+printf("\nDATA SETELAH TERURUT");
+for(i=0; i<MAX; i++)
+{
+printf("\nData ke %d : %d ", i, Data[i]);
+}
 }

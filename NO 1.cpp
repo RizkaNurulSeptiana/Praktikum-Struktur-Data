@@ -1,21 +1,46 @@
-#include<iostream>
-using namespace std;
-int i;
-int angka(int n )
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 10
+int Data[MAX];
+// Fungsi pertukaran bilangan
+void Tukar (int *a, int *b)
 {
-    cout<<"MASUKKAN HURUF :";
-    cin>>n;
-     for (i=n; i<0; i++)
-    {
-        cout<<"Rekursi Dari N Ke 0 : "<<i;
-        cout<<endl;
-    }
-    return n;
+int temp;
+temp = *a;
+*a = *b;
+*b = temp;
 }
-
-int main ()
+// Fungsi pengurutan penyisipan biner
+void SelectionSort()
 {
-    int n;
-    int i;
-    cout<<angka(i);
+int i, j, k;
+for(i=0; i<MAX-1;i++){
+k = i;
+for (j=i+1; j<MAX; j++)
+if(Data[k] > Data[j])
+k = j;
+Tukar(&Data[i], &Data[k]);
+}
+}
+int main()
+{
+int i;
+srand(0);
+printf("RIZKA NURUL SEPTIANA HAKIM\n");
+ printf("20051397025\n");
+ printf("MI_A_2020\n");
+// Membangkitkan bilangan acak
+printf("DATA SEBELUM TERURUT");
+for(i=0; i<MAX; i++)
+{
+Data[i] = (int) rand()/1000+1;
+printf("\nData ke %d : %d ", i, Data[i]);
+}
+SelectionSort();
+// Data setelah terurut
+printf("\nDATA SETELAH TERURUT");
+for(i=0; i<MAX; i++)
+{
+printf("\nData ke %d : %d ", i, Data[i]);
+}
 }
