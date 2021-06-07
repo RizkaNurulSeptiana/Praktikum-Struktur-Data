@@ -1,49 +1,64 @@
-#include<iostream>
-#include<conio.h>
-using namespace std;
-int main()
-{
-    //Deklarasi variabel
-   int val[100];
-   int i, n, t;
-
-   //Input
-   cout<<endl;
-   printf("RIZKA NURUL SEPTIANA HAKIM\n");
+#include <iostream>
+#include <conio.h>
+void Merge(int* ipA, int iEnd1, int iEnd2) {
+    int i = 0;
+    int j = iEnd1;
+    int k = 0;
+    int* ipTemp = new int[iEnd2];
+    // Ambil setiap elemen terkecil berikutnya
+    while (i < iEnd1 && j < iEnd2) {
+        if (ipA[i] < ipA[j]) {
+            ipTemp[k] = ipA[i];
+            ++i;
+        } else {
+            ipTemp[k] = ipA[j];
+            ++j;
+        }
+        ++k;
+    }
+    // Menyalin setiap elemen yang tersisa dari array 1
+    while (i < iEnd1) {
+        ipTemp[k] = ipA[i];
+        ++i;
+        ++k;
+    }
+    // Menyalin setiap elemen yang tersisa dari 2 Array
+    while (j < iEnd2) {
+        ipTemp[k] = ipA[j];
+        ++j;
+        ++k;
+    }
+    // Salin array bergabung kembali dengan aslinya
+    for (int iIndex = 0; iIndex < iEnd2; ++iIndex) {
+        ipA[iIndex] = ipTemp[iIndex];
+    }
+    delete [] ipTemp;
+}
+ 
+int main() {
+    using namespace std;
+    printf("RIZKA NURUL SEPTIANA HAKIM\n");
  printf("20051397025\n");
  printf("MI_A_2020\n");
-   cout<<"\n\t\t\tPengurutan Menaik Metode Shell Shot \n\n\n";
-   cout<<"Masukkan Jumlah Data yg ingin di urutkan : ";cin>>n;
-   cout<<endl;
-    for(i = 0; i < n; i++)
-   {
-       cout<<"Nilai ke-"<<1+i<<"  : ";cin>>val[i];
-   }
-
-   //Shell Sort
-    for(int w = n/2; w > 0;w=w/2)
-    {
-       for(int x = w; x < n; x++)
-      {
-          for (int y = x-w; y >= 0; y-=w)
-         {
-             if(val[y+w] < val[y]) //Note
-            {
-                t=val[y+w];
-               val[y+w]=val[y];
-               val[y]=t;
-            }
-         }
-      }
-   }
-
-   //Mencetak data setelah diurutkan
-   cout<<endl;
-   cout<<" DATA YG TELAH DIURUTKAN DENGAN MENGGUNAKAN SHELL SORT  \n";
-   cout<<endl;
-   for(i = 0; i < n; i++)
-   {
-       cout<<val[i]<<" ";
-   }
-   getch();
+    cout<< "\t MERGE SORT \n\n";
+    int iaArray[] = { 9, 1, 2, 5, 6, 4};
+    int iSize = 6;
+ 
+    // Proses Pengurutan dengan Merge Sort
+    for (int i = 1; i < iSize; i *= 2) {
+        for (int j = 0; j < iSize - i; j += 2*i) {  //1. Kelompokan deret bilangan kedalam 2 bagian, 4 bagian, 8 bagian, ......dst   ? (2n)
+            int iEnd2 = (2*i < iSize - j) ? 2*i : iSize - j;
+            Merge(&(iaArray[j]), i, iEnd2);
+        }
+    }
+    cout<<"Data yang akan di urut \t: 9, 1, 2, 5, 6, 4 \n";
+    // Output dari Merge sort dalam array
+        cout<<"Data yang telah di urut : ";
+ 
+    for (int i = 0; i < iSize; i++){
+        cout << iaArray[i] << " ";
+    }
+    cout << endl;
+    getch();
+    return 0;
 }
