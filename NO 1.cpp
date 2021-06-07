@@ -1,24 +1,46 @@
-#include <conio.h>
-#include <iostream>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 10
+int Data[MAX];
+// Fungsi pertukaran bilangan
+void Tukar (int *a, int *b)
+{
+int temp;
+temp = *a;
+*a = *b;
+*b = temp;
+}
+// Fungsi pengurutan penyisipan biner
+void SelectionSort()
+{
+int i, j, k;
+for(i=0; i<MAX-1;i++){
+k = i;
+for (j=i+1; j<MAX; j++)
+if(Data[k] > Data[j])
+k = j;
+Tukar(&Data[i], &Data[k]);
+}
+}
 int main()
 {
-for(int i=0;i<20;i++){
-cout<<A[i]<<" ";
-}
+int i;
+srand(0);
 printf("RIZKA NURUL SEPTIANA HAKIM\n");
  printf("20051397025\n");
  printf("MI_A_2020\n");
-cout<<"\nData yang ingin dicari : ";
-cin>>c;
-i=0;
-posisi=0;
-while(i<19 && A[i]!=c){
- i++;
+// Membangkitkan bilangan acak
+printf("DATA SEBELUM TERURUT");
+for(i=0; i<MAX; i++)
+{
+Data[i] = (int) rand()/1000+1;
+printf("\nData ke %d : %d ", i, Data[i]);
 }
-if (A[i]!=c){
- cout<<"Maaf data yang dicari tidak ada";
-}else if(posisi=i+1)
-   cout<<"ditemukan pada posisi ke "<<posisi;
-getch();
+SelectionSort();
+// Data setelah terurut
+printf("\nDATA SETELAH TERURUT");
+for(i=0; i<MAX; i++)
+{
+printf("\nData ke %d : %d ", i, Data[i]);
+}
 }

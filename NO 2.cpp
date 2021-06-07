@@ -1,60 +1,40 @@
-#include <iostream>
-#include <conio.h>
-#include <string.h>
-using namespace std;
-
-main ()
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 10
+int Data[MAX];
+// Fungsi pengurutan penyisipan langsung
+void StraightInsertSort()
 {
-    int jd,no,kiri,kanan,center;
-    char data[20][50],cari[20];
-	printf("RIZKA NURUL SEPTIANA HAKIM\n");
+int i, j, x;
+for(i=1; i<MAX; i++){
+x = Data[i];
+j = i - 1;
+while (x < Data[j]){
+Data[j+1] = Data[j];
+j--;
+}
+Data[j+1] = x;
+}
+}
+int main()
+{
+int i;
+srand(0);
+printf("RIZKA NURUL SEPTIANA HAKIM\n");
  printf("20051397025\n");
  printf("MI_A_2020\n");
-   cout<<"\n\t\t *************************************** \n";
-   cout<<"\t\t | \t\t\t\t       | \n";
-   cout<<"\t\t | \t     Proses Pencarian \t       | \n";
-   cout<<"\t\t | Menggunakan Algoritma Binary Search | \n";
-   cout<<"\t\t | \t\t\t\t       | \n";
-   cout<<"\t\t *************************************** \n\n\n";
-
-    cout<<" Input Jumlah Data  : ";
-    cin>>jd;
-
-   cout<<endl;
-    for (no=0;no<jd;no++)
-    {
-        cout<<" Input Data Ke-"<<(no+1)<<"    : ";
-       cin>>data[no];
-    }
-
-   cout<<endl;
-    cout<<" Input Nilai Dicari : ";
-    cin>>cari;
-
-    kiri=0;
-    kanan=jd-1;
-   center=(kanan-kiri)/2;
-
-    while ((strcmp(data[center],cari)!=0) && (kiri>=0)&& (kanan<jd) && (kanan>=kiri))
-    {
-        if (strcmp (cari,data[center])>0)
-       {
-           kiri=center+1;
-       }
-       else if (strcmp (cari,data[center])<0)
-       {
-           kanan=center-1;
-       }
-       center=kiri+(kanan-kiri)/2;
-    }
-   cout<<endl;
-    if (strcmp(data[center],cari)==0)
-    {
-        cout<<" Keterangan         : Data Ditemukan";
-    }
-    else
-    {
-        cout<<" Keterangan         : Data Tidak Ditemukan";
-   }
-    getch();
+// Membangkitkan bilangan acak
+printf("DATA SEBELUM TERURUT");
+for(i=0; i<MAX; i++)
+{
+Data[i] = (int) rand()/1000+1;
+printf("\nData ke %d : %d ", i, Data[i]);
+}
+StraightInsertSort();
+// Data setelah terurut
+printf("\nDATA SETELAH TERURUT");
+for(i=0; i<MAX; i++)
+{
+printf("\nData ke %d : %d ", i, Data[i]);
+}
 }
