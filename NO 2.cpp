@@ -14,9 +14,9 @@ void bubbleSort(int arr[], int n){
 }
 int main(){
   int array[100], n, i, j;
-  printf("RIZKI JANUAR IRMANSYAH\n");
- printf("20051397046\n");
- printf("MI_B_2020\n");
+  printf("RIZKA NURUL SEPTIANA HAKIM\n");
+ printf("20051397025\n");
+ printf("MI_A_2020\n");
   cout << "Masukkan banyak elemen: ";
   cin >> n;
   cout << "Masukkan nilai: \n";
