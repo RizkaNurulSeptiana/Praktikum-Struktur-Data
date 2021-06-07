@@ -1,66 +1,60 @@
 #include <iostream>
 #include <conio.h>
-#define max 20
-using namespace std ;
-void quick_sort(int darr[max], int lb, int ub)
+#include <string.h>
+using namespace std;
+
+main ()
 {
-  int a;
-   int atas,bawah;
-   int temp;
- 
-   if (lb>=ub)
-    return;
-   a=darr[lb];
-   //1. Tentukan Lower Bound (Batas Bawah) & Upper Bound (Batas Atas)
- 
-   atas=ub;
-   bawah=lb;
- 
-   while (bawah < atas) //2. Bandingkan Lower Bound (LB) dengan Upper Bound (UB)
-   {
-     while (darr[bawah] <= a) //
-       bawah++;
-      while (darr[atas]>a) //3. Jika LB>UB, Tukar (cari operasi perbandingan yang optimal/terkecil)
-       atas--;
-      if(bawah<atas)
-      {
-        temp=darr[bawah];
-         darr[bawah]=darr[atas];
-         darr[atas]=temp;
-      }
-      //4. Jika LB =< UB, maka Next Upper Bound & Lower Bound
- 
-   }
-   darr[lb]=darr[atas];
-   darr[atas]=a;
- 
-   quick_sort(darr,lb,atas-1);
-   quick_sort(darr,atas+1,ub);
-}
- 
-int main()
-{
-  int arr[max];
-   int i,n,lb,ub;
-   lb=0;
-   printf("RIZKA NURUL SEPTIANA HAKIM\n");
+    int jd,no,kiri,kanan,center;
+    char data[20][50],cari[20];
+	printf("RIZKA NURUL SEPTIANA HAKIM\n");
  printf("20051397025\n");
  printf("MI_A_2020\n");
-   cout<<"\tQUICK SORT\n\n";
-   cout<<"Masukkan jumlah index : ";
-   cin>>n;
- 
-   ub=n;
-   cout<<"Masukkan data: \n\n";
-   for(i=1;i<=n;i++)
-   {
-     cout<<"data ke -> "<<i<<" : "; cin>>arr[i];
+   cout<<"\n\t\t *************************************** \n";
+   cout<<"\t\t | \t\t\t\t       | \n";
+   cout<<"\t\t | \t     Proses Pencarian \t       | \n";
+   cout<<"\t\t | Menggunakan Algoritma Binary Search | \n";
+   cout<<"\t\t | \t\t\t\t       | \n";
+   cout<<"\t\t *************************************** \n\n\n";
+
+    cout<<" Input Jumlah Data  : ";
+    cin>>jd;
+
+   cout<<endl;
+    for (no=0;no<jd;no++)
+    {
+        cout<<" Input Data Ke-"<<(no+1)<<"    : ";
+       cin>>data[no];
+    }
+
+   cout<<endl;
+    cout<<" Input Nilai Dicari : ";
+    cin>>cari;
+
+    kiri=0;
+    kanan=jd-1;
+   center=(kanan-kiri)/2;
+
+    while ((strcmp(data[center],cari)!=0) && (kiri>=0)&& (kanan<jd) && (kanan>=kiri))
+    {
+        if (strcmp (cari,data[center])>0)
+       {
+           kiri=center+1;
+       }
+       else if (strcmp (cari,data[center])<0)
+       {
+           kanan=center-1;
+       }
+       center=kiri+(kanan-kiri)/2;
+    }
+   cout<<endl;
+    if (strcmp(data[center],cari)==0)
+    {
+        cout<<" Keterangan         : Data Ditemukan";
+    }
+    else
+    {
+        cout<<" Keterangan         : Data Tidak Ditemukan";
    }
- 
-   quick_sort(arr,lb,ub);
-   cout<<"\nHasil pengurutan data: ";
-   for(i=0; i<n;i++)
-    cout<<" "<<arr[i];
- 
-   getch();
+    getch();
 }
